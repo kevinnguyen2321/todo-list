@@ -1,4 +1,8 @@
 
+
+
+
+
 // Initial page load//
 export const pageLoad = (function() {
     const mainContainer = document.createElement('div')
@@ -36,6 +40,28 @@ export const pageLoad = (function() {
 })()
 
 
+// Function to display To Do lists on page//
 
+export const DisplayLists = function (list) {
+    
+const listCard = document.createElement('div');
+listCard.classList.add('list-card');
+content.appendChild(listCard);
+
+const contentTitleContainer = document.createElement('div');
+const contentTitle = document.createElement('h1');
+contentTitle.textContent = list.title;
+contentTitleContainer.appendChild(contentTitle);
+contentTitle.classList.add('list-title');
+listCard.appendChild(contentTitleContainer);
+
+
+
+const contentItems = document.createElement('p');
+contentItems.textContent = list.dueDate;
+contentItems.classList.add('list-details');
+listCard.appendChild(contentItems);
+
+}
 
 

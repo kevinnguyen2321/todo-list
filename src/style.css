@@ -71,8 +71,16 @@ body {
 }
 
 dialog {
+    border: solid black;
+    height: 250px;
+    width: 250px;
+}
+
+form {
     display: flex;
     flex-direction: column;
-    border: solid black;
-    
+}
+
+.selected {
+    background-color: green;
 }

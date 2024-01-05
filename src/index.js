@@ -12,40 +12,38 @@ const {content} = pageLoad;
 
 
 
-const listCard = document.createElement('div')
-listCard.classList.add('list-card')
-content.appendChild(listCard)
+// const listCard = document.createElement('div')
+// listCard.classList.add('list-card')
+// content.appendChild(listCard)
 
-const contentTitleContainer = document.createElement('div')
-const contentTitle = document.createElement('h1')
-contentTitle.textContent = gymList.title
-contentTitleContainer.appendChild(contentTitle)
-contentTitle.classList.add('list-title')
-listCard.appendChild(contentTitleContainer)
-
-
-
-const contentItems = document.createElement('p')
-contentItems.textContent = gymList.dueDate
-contentItems.classList.add('list-details')
-listCard.appendChild(contentItems)
+// const contentTitleContainer = document.createElement('div')
+// const contentTitle = document.createElement('h1')
+// contentTitle.textContent = gymList.title
+// contentTitleContainer.appendChild(contentTitle)
+// contentTitle.classList.add('list-title')
+// listCard.appendChild(contentTitleContainer)
 
 
-const listCardTwo = document.createElement('div')
-listCardTwo.classList.add('list-card')
-content.appendChild(listCardTwo)
 
-const contentTitleContainerTwo = document.createElement('div')
-const contentTitleTwo = document.createElement('h1')
-contentTitleTwo.textContent = groceryList.title
-contentTitleContainerTwo.appendChild(contentTitleTwo)
-contentTitleTwo.classList.add('list-title')
-listCardTwo.appendChild(contentTitleContainerTwo)
+// const contentItems = document.createElement('p')
+// contentItems.textContent = gymList.dueDate
+// contentItems.classList.add('list-details')
+// listCard.appendChild(contentItems)
 
 
-const listCardThree = document.createElement('div')
-listCardThree.classList.add('list-card')
-content.appendChild(listCardThree)
+// const listCardTwo = document.createElement('div')
+// listCardTwo.classList.add('list-card')
+// content.appendChild(listCardTwo)
+
+// const contentTitleContainerTwo = document.createElement('div')
+// const contentTitleTwo = document.createElement('h1')
+// contentTitleTwo.textContent = groceryList.title
+// contentTitleContainerTwo.appendChild(contentTitleTwo)
+// contentTitleTwo.classList.add('list-title')
+// listCardTwo.appendChild(contentTitleContainerTwo)
+
+
+
 
 
 
