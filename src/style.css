@@ -30,7 +30,7 @@ body {
     justify-self: center;
     align-self: center;
     display: grid;
-    grid-template-columns: repeat(auto-fit, 450px);
+    grid-template-columns: repeat(auto-fit, 750px);
     
 }
 
@@ -39,6 +39,18 @@ body {
     border: solid black;
     display: flex;
     justify-content: space-between;
+}
+
+.right-side-container {
+    display: flex;
+    border: solid black;
+    width: 30%;
+    justify-content: space-between;
+}
+
+.delete-btn {
+    width: 50px;
+    border-radius: 12px;
 }
 
 .list-title {
@@ -82,5 +94,5 @@ form {
 }
 
 .selected {
-    background-color: green;
+    border: solid black;
 }
