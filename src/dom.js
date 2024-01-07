@@ -1,11 +1,13 @@
 import {format} from "date-fns";
 import { listArray,TodoList, addListToArr } from "./create-list"
+import { deleteListItem,updateIndex } from "./delete-list";
+
 
 
 
 
 // Initial page load//
-export const pageLoad = (function() {
+export const loadPageLayout = (function() {
     const mainContainer = document.createElement('div')
     mainContainer.classList.add('main-container')
     document.querySelector('body').appendChild(mainContainer)
@@ -41,7 +43,7 @@ export const pageLoad = (function() {
 })()
 
 
-// Function to add new list via buttons to DOM//
+// Function to create form for list creation and adding to DOM//
 export const createListForm = (function () {
     //Modal for list creation//
     const listModal = document.querySelector('dialog');
@@ -54,7 +56,7 @@ export const createListForm = (function () {
     const lowPriorityBtn = document.getElementById('low');
     const highPriorityBtn = document.getElementById('high');
     let priorityValue;
-    const {addButton} = pageLoad
+    const {addButton} = loadPageLayout
 
     
     // Add button event listener//
@@ -145,20 +147,22 @@ export const createListForm = (function () {
 })();
 
 
-// Function to display To Do lists on page//
+// Function to display Todo list cards on page//
 
 export const createListCard = function (list) {
     
 const listCard = document.createElement('div');
 listCard.classList.add('list-card');
 content.appendChild(listCard);
-
+// Left side containder for List card//
 const leftSideContainer = document.createElement('div');
 const contentTitle = document.createElement('h1');
 contentTitle.textContent = list.title;
 contentTitle.classList.add('list-title');
 leftSideContainer.appendChild(contentTitle);
 listCard.appendChild(leftSideContainer);
+
+
 
 // Right side container on List card//
 const rightSideContainer = document.createElement('div');
@@ -173,8 +177,16 @@ listCard.appendChild(rightSideContainer);
 // Delete button//
 const deleteBtn = document.createElement('button');
 deleteBtn.textContent = 'Delete';
-deleteBtn.classList.add('delete-btn')
-rightSideContainer.appendChild(deleteBtn)
+deleteBtn.classList.add('delete-btn');
+const listIndex = listArray.length -1;
+deleteBtn.setAttribute('data-index', listIndex)
+rightSideContainer.appendChild(deleteBtn);
+
+//Event listener for delete button// 
+  deleteBtn.addEventListener('click', ()=> {
+    deleteListItem(deleteBtn)
+    updateIndex()
+  })
 
 }
 
