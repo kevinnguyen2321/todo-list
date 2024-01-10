@@ -41,14 +41,17 @@ body {
     justify-content: space-between;
 }
 
-.right-side-container {
+
+
+
+.right-side-container, .left-side-container{
     display: flex;
     border: solid black;
     width: 30%;
     justify-content: space-between;
 }
 
-.delete-btn {
+.delete-btn, .edit-btn{
     width: 50px;
     border-radius: 12px;
 }
@@ -96,3 +99,8 @@ form {
 .selected {
     border: solid black;
 }
+
+.edit-modal {
+    border: solid black;
+}
+

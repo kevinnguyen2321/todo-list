@@ -1,9 +1,7 @@
-import {format} from "date-fns";
-import { listArray,TodoList, addListToArr } from "./create-list"
+// import {format} from "date-fns";
+import { listArray,TodoList, addListToArr,formatDate } from "./create-list"
 import { deleteListItem,updateIndex } from "./delete-list";
-
-
-
+import { editListForm,createEditForm } from "./edit";
 
 
 // Initial page load//
@@ -11,6 +9,7 @@ export const loadPageLayout = (function() {
     const mainContainer = document.createElement('div')
     mainContainer.classList.add('main-container')
     document.querySelector('body').appendChild(mainContainer)
+    
     //Header//
     const header = document.createElement('div')
     header.classList.add('header')
@@ -18,12 +17,11 @@ export const loadPageLayout = (function() {
     headerText.textContent = 'My Todo List'
     header.appendChild(headerText)
     mainContainer.appendChild(header)
-
+    //Content section//
     const content = document.getElementById('content');
     mainContainer.appendChild(content)
     
-
-     //Side bar//
+    //Side bar//
     const sideBar = document.createElement('div')
     sideBar.classList.add('side-bar')
     const sideBarText = document.createElement('p')
@@ -36,11 +34,25 @@ export const loadPageLayout = (function() {
     sideBar.appendChild(sideBarText)
     mainContainer.appendChild(sideBar)
 
-   
-    
-    return {content,addButton}
+   return {content,addButton}
 
 })()
+
+// Function to handle priority buttons//
+export const handlePriorityBtns = function (oppositeBtn, button) {
+    if (oppositeBtn.classList.contains('selected')) {
+        oppositeBtn.classList.remove('selected')
+        oppositeBtn.style.backgroundColor = '';
+        button.classList.add('selected')
+        button.style.backgroundColor = 'green';
+       priorityValue = 'low'
+        
+    } else {
+        button.classList.add('selected')
+        button.style.backgroundColor = 'green'
+        priorityValue = 'low'
+    }
+}
 
 
 // Function to create form for list creation and adding to DOM//
@@ -58,13 +70,22 @@ export const createListForm = (function () {
     let priorityValue;
     const {addButton} = loadPageLayout
 
-    
     // Add button event listener//
     addButton.addEventListener('click', (e) => {
+        // Clear values after submit button is clicked//
+        titleInput.value = ''
+        descriptionInput.value = ''
+        itemsInput.value = ''
+        dueDateInput.value = ''
+        priorityValue = ''
+        highPriorityBtn.classList.remove('selected')
+        highPriorityBtn.style.backgroundColor = ''
+        lowPriorityBtn.classList.remove('selected')
+        lowPriorityBtn.style.backgroundColor = ''
+        
         listModal.showModal()
     });
 
-   
     //Close button event listener//
     closeBtn.addEventListener('click', (e) => {
         e.preventDefault ();
@@ -72,9 +93,7 @@ export const createListForm = (function () {
         
     });
     
-    
     //Priority button selection//
-
     lowPriorityBtn.addEventListener('click', (e)=> {
         e.preventDefault();
         if (highPriorityBtn.classList.contains('selected')) {
@@ -113,10 +132,8 @@ export const createListForm = (function () {
     //Submit button event listener//
     submitBtn.addEventListener('click', (e) => {
         e.preventDefault();
-    // Converting date into correct format//
-        const dateString = dueDateInput.value;
-        const dateNoHyphen = new Date (dateString.replace(/-/g, '/'))
-        const formattedDate = format(dateNoHyphen, 'MM/dd/yyyy')
+        //Call function to formate date//
+        const formattedDate = formatDate(dueDateInput.value)
 
     // Creating new TodoList instance//
 
@@ -127,25 +144,15 @@ export const createListForm = (function () {
         
          //Function to display list card on page//
         createListCard(list)
-
-        
-        // Clear values after submit button is clicked//
-        titleInput.value = ''
-        descriptionInput.value = ''
-        itemsInput.value = ''
-        dueDateInput.value = ''
-        priorityValue = ''
-        highPriorityBtn.classList.remove('selected')
-        highPriorityBtn.style.backgroundColor = ''
-        lowPriorityBtn.classList.remove('selected')
-        lowPriorityBtn.style.backgroundColor = ''
+        console.log('Initial List with no edits:', list)
 
         listModal.close()
+        
     }); 
     
+   return {listModal}
    
 })();
-
 
 // Function to display Todo list cards on page//
 
@@ -156,13 +163,13 @@ listCard.classList.add('list-card');
 content.appendChild(listCard);
 // Left side containder for List card//
 const leftSideContainer = document.createElement('div');
+leftSideContainer.classList.add('left-side-container')
+//List card title//
 const contentTitle = document.createElement('h1');
 contentTitle.textContent = list.title;
 contentTitle.classList.add('list-title');
 leftSideContainer.appendChild(contentTitle);
-listCard.appendChild(leftSideContainer);
-
-
+listCard.appendChild(leftSideContainer)
 
 // Right side container on List card//
 const rightSideContainer = document.createElement('div');
@@ -173,6 +180,23 @@ dueDateDisplay.textContent = list.dueDate;
 dueDateDisplay.classList.add('list-details');
 rightSideContainer.appendChild(dueDateDisplay)
 listCard.appendChild(rightSideContainer);
+
+
+//Edit button// 
+const editBtn = document.createElement('button');
+editBtn.classList.add('edit-btn')
+editBtn.textContent = 'Edit'
+rightSideContainer.appendChild(editBtn);
+
+//Event listener for edit button//
+editBtn.addEventListener('click', (e)=> {
+    e.preventDefault ();
+    const {editDialog} = createEditForm(list, contentTitle,dueDateDisplay)
+    document.body.appendChild(editDialog)
+    editDialog.showModal()
+    
+    
+});
 
 // Delete button//
 const deleteBtn = document.createElement('button');
@@ -186,8 +210,9 @@ rightSideContainer.appendChild(deleteBtn);
   deleteBtn.addEventListener('click', ()=> {
     deleteListItem(deleteBtn)
     updateIndex()
-  })
+  });
 
+  
 }
 
 
