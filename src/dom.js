@@ -1,5 +1,5 @@
 // import {format} from "date-fns";
-import { listArray,TodoList, addListToArr,formatDate } from "./create-list"
+import { listArray,TodoList, addListToArr,formatDate,handlePriorityBtns } from "./create-list"
 import { deleteListItem,updateIndex } from "./delete-list";
 import { editListForm,createEditForm } from "./edit";
 
@@ -38,21 +38,6 @@ export const loadPageLayout = (function() {
 
 })()
 
-// Function to handle priority buttons//
-export const handlePriorityBtns = function (oppositeBtn, button) {
-    if (oppositeBtn.classList.contains('selected')) {
-        oppositeBtn.classList.remove('selected')
-        oppositeBtn.style.backgroundColor = '';
-        button.classList.add('selected')
-        button.style.backgroundColor = 'green';
-       priorityValue = 'low'
-        
-    } else {
-        button.classList.add('selected')
-        button.style.backgroundColor = 'green'
-        priorityValue = 'low'
-    }
-}
 
 
 // Function to create form for list creation and adding to DOM//
@@ -96,36 +81,38 @@ export const createListForm = (function () {
     //Priority button selection//
     lowPriorityBtn.addEventListener('click', (e)=> {
         e.preventDefault();
-        if (highPriorityBtn.classList.contains('selected')) {
-            highPriorityBtn.classList.remove('selected')
-            highPriorityBtn.style.backgroundColor = '';
-            lowPriorityBtn.classList.add('selected')
-            lowPriorityBtn.style.backgroundColor = 'green';
+        handlePriorityBtns(highPriorityBtn, lowPriorityBtn)
+        // if (highPriorityBtn.classList.contains('selected')) {
+        //     highPriorityBtn.classList.remove('selected')
+        //     highPriorityBtn.style.backgroundColor = '';
+        //     lowPriorityBtn.classList.add('selected')
+        //     lowPriorityBtn.style.backgroundColor = 'green';
            priorityValue = 'low'
             
-        } else {
-            lowPriorityBtn.classList.add('selected')
-            lowPriorityBtn.style.backgroundColor = 'green'
-            priorityValue = 'low'
-        }
+        // } else {
+        //     lowPriorityBtn.classList.add('selected')
+        //     lowPriorityBtn.style.backgroundColor = 'green'
+        //     priorityValue = 'low'
+        // }
 
        
     });
 
     highPriorityBtn.addEventListener('click', (e)=> {
         e.preventDefault();
-        if (lowPriorityBtn.classList.contains('selected')) {
-            lowPriorityBtn.classList.remove('selected');
-            lowPriorityBtn.style.backgroundColor = '';
-            highPriorityBtn.classList.add('selected')
-            highPriorityBtn.style.backgroundColor = 'red';
+        handlePriorityBtns(lowPriorityBtn,highPriorityBtn)
+        // if (lowPriorityBtn.classList.contains('selected')) {
+        //     lowPriorityBtn.classList.remove('selected');
+        //     lowPriorityBtn.style.backgroundColor = '';
+        //     highPriorityBtn.classList.add('selected')
+        //     highPriorityBtn.style.backgroundColor = 'red';
             priorityValue = 'high'
             
-        } else {
-            highPriorityBtn.classList.add('selected')
-            highPriorityBtn.style.backgroundColor = 'red'
-            priorityValue = 'high'
-        }
+        // } else {
+        //     highPriorityBtn.classList.add('selected')
+        //     highPriorityBtn.style.backgroundColor = 'red'
+        //     priorityValue = 'high'
+        // }
         
     })
     

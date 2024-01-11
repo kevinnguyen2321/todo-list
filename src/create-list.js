@@ -44,6 +44,33 @@ export const formatDate = function(date) {
     return formattedDate
 }
 
+// Function to handle priority buttons//
+export const handlePriorityBtns = function (oppositeBtn, button) {
+    if (oppositeBtn.classList.contains('selected')) {
+        oppositeBtn.classList.remove('selected')
+        oppositeBtn.style.backgroundColor = '';
+        button.classList.add('selected')
+        
+        if (button.textContent === 'Low') {
+            button.style.backgroundColor = 'green'
+            
+        } else {
+            button.style.backgroundColor = 'red'
+            
+        }
+    } else {
+        button.classList.add('selected')
+        if (button.textContent === 'Low') {
+            button.style.backgroundColor = 'green'
+            
+            
+        } else {
+            button.style.backgroundColor = 'red'
+            
+        }
+    }
+}
+
 
 
 

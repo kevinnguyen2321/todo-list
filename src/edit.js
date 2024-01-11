@@ -1,5 +1,6 @@
 import { createListCard, createListForm,loadPageLayout} from "./dom"
-import { formatDate } from "./create-list"
+import { formatDate,handlePriorityBtns } from "./create-list"
+
 
 
 
@@ -79,13 +80,37 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
     editForm.appendChild(dueDateInputEdit)
 
 
+    //Priority buttons// 
+    const priorityBtnEditContainer = document.createElement('div')
+    editForm.appendChild(priorityBtnEditContainer)
+
+     //Low priority edit button
+    const lowPriorityEditBtn = document.createElement('button')
+    lowPriorityEditBtn.textContent = 'Low'
+    priorityBtnEditContainer.appendChild(lowPriorityEditBtn)
+
+    lowPriorityEditBtn.addEventListener('click', (e)=> {
+        e.preventDefault()
+        handlePriorityBtns(highPriorityEditBtn,lowPriorityEditBtn)
+        list.priority = 'low'
+
+    });
 
 
 
+    //High priority edit button//
+    const highPriorityEditBtn = document.createElement('button')
+    highPriorityEditBtn.textContent = 'High'
+    priorityBtnEditContainer.appendChild(highPriorityEditBtn)
+
+    highPriorityEditBtn.addEventListener('click', (e)=> {
+        e.preventDefault();
+        handlePriorityBtns(lowPriorityEditBtn,highPriorityEditBtn)
+        list.priority = 'high'
+    });
     
-    
-    
-    
+
+
     //Confirm edit button//
     const confirmEditBtn = document.createElement('button')
     confirmEditBtn.textContent = 'Confirm Edit';
@@ -114,11 +139,19 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
     
     });
 
+    //Cancel button//
+    const cancelBtn = document.createElement('button')
+    cancelBtn.textContent = 'Cancel'
+    editForm.appendChild(cancelBtn)
+    //Cancel button event listener//
+    cancelBtn.addEventListener('click', (e) =>{ 
+        e.preventDefault();
+        editDialog.close()
 
-    
+    });
 
 
- return {editDialog,titleInputEdit}
+return {editDialog,titleInputEdit}
 }
 
 
