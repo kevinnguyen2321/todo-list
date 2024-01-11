@@ -1,18 +1,4 @@
-import { createListCard, createListForm,loadPageLayout} from "./dom"
 import { formatDate,handlePriorityBtns } from "./create-list"
-
-
-
-
-
-export const editListForm = function (list) {
-    
-    list.title = titleInput.value
-    list.description = descriptionInput.value
-    list.items = itemsInput.value
-    list.dueDate = formattedDate
-    list.priority = priorityValue
-}
 
 
 export const createEditForm = function (list, contentTitle, dueDateDisplay) {
@@ -92,7 +78,7 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
     lowPriorityEditBtn.addEventListener('click', (e)=> {
         e.preventDefault()
         handlePriorityBtns(highPriorityEditBtn,lowPriorityEditBtn)
-        list.priority = 'low'
+        list.priority = 'Low'
 
     });
 
@@ -106,7 +92,7 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
     highPriorityEditBtn.addEventListener('click', (e)=> {
         e.preventDefault();
         handlePriorityBtns(lowPriorityEditBtn,highPriorityEditBtn)
-        list.priority = 'high'
+        list.priority = 'High'
     });
     
 

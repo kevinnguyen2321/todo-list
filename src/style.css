@@ -104,3 +104,45 @@ form {
     border: solid black;
 }
 
+.view-modal {
+    width: 570px;
+    height: 340px;
+}
+
+.view-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    line-height: 1;
+}
+
+.view-container {
+    display: flex;
+    flex-direction: column; 
+
+}
+
+.title-container, .description-container, .list-items-container,
+ .due-date-container, .priority-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: solid black;
+    width: 90%;
+    padding: 5px;
+    gap: 10px;
+}
+
+.view-container h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.view-container p {
+    font-size: 1rem;
+}

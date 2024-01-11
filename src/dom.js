@@ -1,7 +1,8 @@
 // import {format} from "date-fns";
 import { listArray,TodoList, addListToArr,formatDate,handlePriorityBtns } from "./create-list"
 import { deleteListItem,updateIndex } from "./delete-list";
-import { editListForm,createEditForm } from "./edit";
+import {createEditForm } from "./edit";
+import { viewListDetails } from "./view";
 
 
 // Initial page load//
@@ -82,39 +83,14 @@ export const createListForm = (function () {
     lowPriorityBtn.addEventListener('click', (e)=> {
         e.preventDefault();
         handlePriorityBtns(highPriorityBtn, lowPriorityBtn)
-        // if (highPriorityBtn.classList.contains('selected')) {
-        //     highPriorityBtn.classList.remove('selected')
-        //     highPriorityBtn.style.backgroundColor = '';
-        //     lowPriorityBtn.classList.add('selected')
-        //     lowPriorityBtn.style.backgroundColor = 'green';
-           priorityValue = 'low'
-            
-        // } else {
-        //     lowPriorityBtn.classList.add('selected')
-        //     lowPriorityBtn.style.backgroundColor = 'green'
-        //     priorityValue = 'low'
-        // }
-
-       
+        priorityValue = 'Low'
     });
 
     highPriorityBtn.addEventListener('click', (e)=> {
         e.preventDefault();
         handlePriorityBtns(lowPriorityBtn,highPriorityBtn)
-        // if (lowPriorityBtn.classList.contains('selected')) {
-        //     lowPriorityBtn.classList.remove('selected');
-        //     lowPriorityBtn.style.backgroundColor = '';
-        //     highPriorityBtn.classList.add('selected')
-        //     highPriorityBtn.style.backgroundColor = 'red';
-            priorityValue = 'high'
-            
-        // } else {
-        //     highPriorityBtn.classList.add('selected')
-        //     highPriorityBtn.style.backgroundColor = 'red'
-        //     priorityValue = 'high'
-        // }
-        
-    })
+        priorityValue = 'High'
+    });
     
     //Submit button event listener//
     submitBtn.addEventListener('click', (e) => {
@@ -123,8 +99,7 @@ export const createListForm = (function () {
         const formattedDate = formatDate(dueDateInput.value)
 
     // Creating new TodoList instance//
-
-         const list = new TodoList (titleInput.value, descriptionInput.value, 
+    const list = new TodoList (titleInput.value, descriptionInput.value, 
         itemsInput.value,formattedDate, priorityValue)
             //Add list to list array//
           addListToArr(list)
@@ -134,7 +109,6 @@ export const createListForm = (function () {
         console.log('Initial List with no edits:', list)
 
         listModal.close()
-        
     }); 
     
    return {listModal}
@@ -157,6 +131,19 @@ contentTitle.textContent = list.title;
 contentTitle.classList.add('list-title');
 leftSideContainer.appendChild(contentTitle);
 listCard.appendChild(leftSideContainer)
+
+//View button//
+const viewBtn = document.createElement('button')
+viewBtn.textContent = 'View'
+leftSideContainer.appendChild(viewBtn);
+
+viewBtn.addEventListener('click', (e)=> {
+    e.preventDefault();
+    const {viewDialog} = viewListDetails(list)
+    content.appendChild(viewDialog)
+    viewDialog.showModal()
+    
+});
 
 // Right side container on List card//
 const rightSideContainer = document.createElement('div');
@@ -181,8 +168,6 @@ editBtn.addEventListener('click', (e)=> {
     const {editDialog} = createEditForm(list, contentTitle,dueDateDisplay)
     document.body.appendChild(editDialog)
     editDialog.showModal()
-    
-    
 });
 
 // Delete button//
@@ -199,7 +184,6 @@ rightSideContainer.appendChild(deleteBtn);
     updateIndex()
   });
 
-  
 }
 
 
