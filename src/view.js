@@ -40,7 +40,7 @@ export const viewListDetails = function (list) {
    listItemsContainer.classList.add('list-items-container')
 
    const listItemHeader = document.createElement('h2')
-   listItemHeader.textContent = 'Items/Tasks'
+   listItemHeader.textContent = 'Items/Tasks:'
 
    const listItemsValues = document.createElement('p')
    listItemsValues.textContent = list.items;
@@ -94,4 +94,5 @@ export const viewListDetails = function (list) {
 
   return {viewDialog}
 }
+
 

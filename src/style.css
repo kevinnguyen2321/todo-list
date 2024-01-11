@@ -41,6 +41,11 @@ body {
     justify-content: space-between;
 }
 
+.completed {
+    text-decoration: line-through;
+    color: rgb(230, 186, 186);
+}
+
 
 
 
@@ -58,7 +63,6 @@ body {
 
 .list-title {
     display: flex;
-    border: solid black;
 }
 
 .list-card h1 {
@@ -67,7 +71,6 @@ body {
 
 .list-details {
     display: flex;
-    border: solid;
 }
 
 
@@ -113,7 +116,7 @@ form {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 20px;
+    font-size: 2rem;
     cursor: pointer;
     border: none;
     background: none;
@@ -146,3 +149,4 @@ form {
 .view-container p {
     font-size: 1rem;
 }
+

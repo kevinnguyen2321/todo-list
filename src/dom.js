@@ -3,6 +3,7 @@ import { listArray,TodoList, addListToArr,formatDate,handlePriorityBtns } from "
 import { deleteListItem,updateIndex } from "./delete-list";
 import {createEditForm } from "./edit";
 import { viewListDetails } from "./view";
+import { createNewProject } from "./sidebar";
 
 
 // Initial page load//
@@ -35,7 +36,7 @@ export const loadPageLayout = (function() {
     sideBar.appendChild(sideBarText)
     mainContainer.appendChild(sideBar)
 
-   return {content,addButton}
+   return {content,addButton,sideBar}
 
 })()
 
@@ -130,7 +131,24 @@ const contentTitle = document.createElement('h1');
 contentTitle.textContent = list.title;
 contentTitle.classList.add('list-title');
 leftSideContainer.appendChild(contentTitle);
-listCard.appendChild(leftSideContainer)
+listCard.appendChild(leftSideContainer);
+
+//Checkbox// 
+const checkBox = document.createElement('input')
+checkBox.type = 'checkbox'
+checkBox.id = 'completed'
+
+const labelForCheckBox = document.createElement('label');
+labelForCheckBox.htmlFor = 'completed'
+
+
+leftSideContainer.appendChild(checkBox)
+leftSideContainer.appendChild(labelForCheckBox)
+
+checkBox.addEventListener('change', ()=>{
+    listCard.classList.toggle('completed', checkBox.checked);
+});
+
 
 //View button//
 const viewBtn = document.createElement('button')
