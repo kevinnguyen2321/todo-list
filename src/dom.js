@@ -19,20 +19,33 @@ export const loadPageLayout = (function() {
     headerText.textContent = 'My Todo List'
     header.appendChild(headerText)
     mainContainer.appendChild(header)
+
+    // Add button div//
+    const addBtnContainer = document.createElement('div')
+    addBtnContainer.classList.add('add-btn-container')
+    const addButton = document.createElement('button');
+    addButton.textContent = 'Add Task'
+    addButton.classList.add('add-btn')
+    addBtnContainer.appendChild(addButton)
+    mainContainer.appendChild(addBtnContainer)
+    
     //Content section//
     const content = document.getElementById('content');
     mainContainer.appendChild(content)
+
     
     //Side bar//
     const sideBar = document.createElement('div')
     sideBar.classList.add('side-bar')
+    //Add new project button//
+    const addNewProjectBtn = document.createElement('button')
+    addNewProjectBtn.classList.add('add-project-btn')
+    addNewProjectBtn.textContent = 'Add new project'
+    sideBar.appendChild(addNewProjectBtn)
+    //Side bar default project//
     const sideBarText = document.createElement('p')
     sideBarText.textContent = 'My Projects'
 
-    const addButton = document.createElement('button');
-    addButton.textContent = 'Add'
-    addButton.classList.add('add-btn')
-    sideBar.appendChild(addButton)
     sideBar.appendChild(sideBarText)
     mainContainer.appendChild(sideBar)
 
