@@ -3,7 +3,7 @@ import { listArray,TodoList, addListToArr,formatDate,handlePriorityBtns } from "
 import { deleteListItem,updateIndex } from "./delete-list";
 import {createEditForm } from "./edit";
 import { viewListDetails } from "./view";
-import { createNewProject } from "./sidebar";
+import { createUserSelectionModal} from "./sidebar";
 
 
 // Initial page load//
@@ -37,19 +37,41 @@ export const loadPageLayout = (function() {
     //Side bar//
     const sideBar = document.createElement('div')
     sideBar.classList.add('side-bar')
-    //Add new project button//
-    const addNewProjectBtn = document.createElement('button')
-    addNewProjectBtn.classList.add('add-project-btn')
-    addNewProjectBtn.textContent = 'Add new project'
-    sideBar.appendChild(addNewProjectBtn)
-    //Side bar default project//
-    const sideBarText = document.createElement('p')
-    sideBarText.textContent = 'My Projects'
 
-    sideBar.appendChild(sideBarText)
+    //Container for plus button & Todo header//
+    const sideBarTopContainer = document.createElement('div');
+    sideBarTopContainer.classList.add('side-bar-top-container')
+    sideBar.appendChild(sideBarTopContainer)
+
+    //Plus button//
+    const plusBtn = document.createElement('button')
+    plusBtn.classList.add('add-project-btn')
+    plusBtn.textContent = '+'
+    sideBarTopContainer.appendChild(plusBtn)
+
+    // Plus button event listener//
+    plusBtn.addEventListener('click', (e)=> {
+        e.preventDefault();
+        const {plusDialog} = createUserSelectionModal()
+        content.appendChild(plusDialog)
+        plusDialog.showModal()
+    });
+
+    //Side bar todo lists//
+    const sideBarTodoText = document.createElement('p')
+    sideBarTodoText.textContent = 'Todo Lists'
+    sideBarTopContainer.appendChild(sideBarTodoText)
+    
+
+
+    //Side bar default project//
+    const sideBarProjectText = document.createElement('p')
+    sideBarProjectText.textContent = 'Projects'
+
+    sideBar.appendChild(sideBarProjectText)
     mainContainer.appendChild(sideBar)
 
-   return {content,addButton,sideBar}
+   return {content,addButton,sideBar, plusBtn}
 
 })()
 
@@ -216,5 +238,6 @@ rightSideContainer.appendChild(deleteBtn);
   });
 
 }
+
 
 

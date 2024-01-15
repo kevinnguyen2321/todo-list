@@ -94,8 +94,22 @@ body {
     font-size: 2rem;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 5fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-items: center;
 }
+
+.side-bar-top-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.side-bar-top-container button {
+    align-self: center;
+}
+
 
 .add-project-btn {
     width:75px;
@@ -167,3 +181,61 @@ form {
     font-size: 1rem;
 }
 
+.plus-dialog {
+    border: solid black;
+    width: 400px;
+    height: 400px;
+    padding: 0;
+}
+
+.plus-dialog-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr; 
+    height: 100%;
+    width: 100%;
+    
+}
+
+.add-new-todo-btn, .add-new-project-btn {
+   font-size: 2rem;
+   border: none;
+}
+
+.add-new-project-btn {
+    border-top: solid 1.5px rgb(150, 143, 143);
+}
+
+.project-modal-close {
+    position: absolute;
+    top: 1px;
+    right: -35px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    line-height: 1;
+}
+
+.new-project-dialog {
+    width: 250px;
+    height: 250px;
+    padding: 0;
+}
+
+.new-project-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.new-project-form button {
+    width: 80px;
+   height: 40px;
+
+}
