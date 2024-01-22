@@ -6,10 +6,9 @@ body {
 .main-container {
     border: solid black;
     display: grid;
-   grid-template-columns: 1fr 1fr 1fr;
+   grid-template-columns: 1fr 10fr;
    grid-template-rows: 1fr 5fr 3fr;
     height: 100vh;
-   
 }
 
 .header {
@@ -22,30 +21,45 @@ body {
     height: 100%;
 }
 
+.content-container {
+    border: solid rgb(184, 11, 11);
+    grid-row: 2/4;
+    grid-column: 2/4;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 5fr;
+}
+
 .add-btn-container {
-    grid-column: 2/3;
-    grid-row: 2/3;
-    justify-self: center;
+    /* border: solid black; */
+    width: 30%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr 1fr;
+   justify-self: center;
     align-self: start;
     padding-top: 25px;
+}
+
+.project-header-text {
+    align-self: center;
+    justify-self: center;
 }
 
 .add-btn {
     background-color: black;
     color:  whitesmoke;
-    width: 150px;
+    width: 80px;
+    justify-self: center;
 }
 
 #content {
-    background-color: red;
     justify-self: center;
-    align-self: center;
+    align-self: start;
     display: grid;
     grid-template-columns: repeat(auto-fit, 750px);
-    grid-row: 2/3;
-    grid-column: 2/3;
-    
-}
+    gap: 5px;
+ }
 
 .list-card {
     height: 50px;
@@ -94,28 +108,53 @@ body {
     font-size: 2rem;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 3fr ;
     justify-items: center;
 }
 
 .side-bar-top-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
-.side-bar-top-container button {
+ .side-bar-top-container button {
     align-self: center;
 }
 
+.side-bar-top-container p {
+    align-self: center;
+} 
 
-.add-project-btn {
+
+.plus-btn {
     width:75px;
     height: 50px;
     align-self: start;
     justify-self: center;
+}
+
+.side-bar-project-container {
+    border: solid black;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(auto-fit,80px);;
+    align-items: center;
+}
+
+.side-bar-project-container h3 {
+    justify-self: center;
+}
+
+.side-bar-project-cards {
+    height: 40px;
+    border: solid black;
+    display: flex;
+    justify-content: center;
 }
 
 

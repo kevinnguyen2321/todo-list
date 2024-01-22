@@ -3,7 +3,12 @@ import { listArray,TodoList, addListToArr,formatDate,handlePriorityBtns } from "
 import { deleteListItem,updateIndex } from "./delete-list";
 import {createEditForm } from "./edit";
 import { viewListDetails } from "./view";
-import { createUserSelectionModal} from "./sidebar";
+import { createUserSelectionModal, createNewProjectModal} from "./sidebar";
+import { getCurrentProject } from "./projectManager";
+
+
+
+
 
 
 // Initial page load//
@@ -20,6 +25,14 @@ export const loadPageLayout = (function() {
     header.appendChild(headerText)
     mainContainer.appendChild(header)
 
+
+    //Content section//
+
+    //Content container//
+    const contentContainer = document.createElement('div')
+    contentContainer.classList.add('content-container')
+    mainContainer.appendChild(contentContainer)
+
     // Add button div//
     const addBtnContainer = document.createElement('div')
     addBtnContainer.classList.add('add-btn-container')
@@ -27,16 +40,26 @@ export const loadPageLayout = (function() {
     addButton.textContent = 'Add Task'
     addButton.classList.add('add-btn')
     addBtnContainer.appendChild(addButton)
-    mainContainer.appendChild(addBtnContainer)
+
+    //Header for project/todolist//
+    const projectHeader = document.createElement('h1')
+    addBtnContainer.insertBefore(projectHeader, addButton);
+    projectHeader.classList.add('project-header-text')
+
     
-    //Content section//
+    contentContainer.appendChild(addBtnContainer)
+
+    // // Content DOM//
     const content = document.getElementById('content');
-    mainContainer.appendChild(content)
+    contentContainer.appendChild(content)
+
+    
 
     
     //Side bar//
     const sideBar = document.createElement('div')
-    sideBar.classList.add('side-bar')
+    sideBar.classList.add('side-bar');
+    mainContainer.appendChild(sideBar)
 
     //Container for plus button & Todo header//
     const sideBarTopContainer = document.createElement('div');
@@ -45,7 +68,7 @@ export const loadPageLayout = (function() {
 
     //Plus button//
     const plusBtn = document.createElement('button')
-    plusBtn.classList.add('add-project-btn')
+    plusBtn.classList.add('plus-btn')
     plusBtn.textContent = '+'
     sideBarTopContainer.appendChild(plusBtn)
 
@@ -53,25 +76,41 @@ export const loadPageLayout = (function() {
     plusBtn.addEventListener('click', (e)=> {
         e.preventDefault();
         const {plusDialog} = createUserSelectionModal()
-        content.appendChild(plusDialog)
+        // content.appendChild(plusDialog)
+        addBtnContainer.appendChild(plusDialog)
         plusDialog.showModal()
     });
 
     //Side bar todo lists//
-    const sideBarTodoText = document.createElement('p')
-    sideBarTodoText.textContent = 'Todo Lists'
-    sideBarTopContainer.appendChild(sideBarTodoText)
+    const sideBarTodoHeader = document.createElement('h3')
+    sideBarTodoHeader.textContent = 'Todo Lists'
+    sideBarTopContainer.appendChild(sideBarTodoHeader)
     
 
+    //Side bar project header//
+    
+    //Sidebar project text container// 
+    const projectHeaderContainer = document.createElement('div')
+    projectHeaderContainer.classList.add('side-bar-project-container')
 
-    //Side bar default project//
-    const sideBarProjectText = document.createElement('p')
-    sideBarProjectText.textContent = 'Projects'
+    const sideBarProjectHeader = document.createElement('h3')
+    sideBarProjectHeader.textContent = 'Projects'
 
-    sideBar.appendChild(sideBarProjectText)
-    mainContainer.appendChild(sideBar)
+    projectHeaderContainer.appendChild(sideBarProjectHeader)
+    sideBar.appendChild(projectHeaderContainer)
 
-   return {content,addButton,sideBar, plusBtn}
+
+   
+
+   
+
+
+
+   
+    return {content,sideBar, plusBtn, 
+    projectHeaderContainer,
+    contentContainer, projectHeader,
+     mainContainer, addButton}
 
 })()
 
@@ -143,6 +182,7 @@ export const createListForm = (function () {
          //Function to display list card on page//
         createListCard(list)
         console.log('Initial List with no edits:', list)
+        
 
         listModal.close()
     }); 
@@ -154,10 +194,23 @@ export const createListForm = (function () {
 // Function to display Todo list cards on page//
 
 export const createListCard = function (list) {
+   
     
 const listCard = document.createElement('div');
 listCard.classList.add('list-card');
-content.appendChild(listCard);
+// content.appendChild(listCard);
+const project = getCurrentProject()
+
+if (project) {
+    project.content.appendChild(listCard)
+    
+}
+
+
+
+
+
+
 // Left side containder for List card//
 const leftSideContainer = document.createElement('div');
 leftSideContainer.classList.add('left-side-container')
@@ -237,7 +290,6 @@ rightSideContainer.appendChild(deleteBtn);
     updateIndex()
   });
 
-}
-
+};
 
 
