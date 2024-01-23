@@ -110,7 +110,7 @@ export const loadPageLayout = (function() {
     return {content,sideBar, plusBtn, 
     projectHeaderContainer,
     contentContainer, projectHeader,
-     mainContainer, addButton}
+     mainContainer, addButton, sideBarTodoHeader}
 
 })()
 
@@ -177,11 +177,15 @@ export const createListForm = (function () {
     const list = new TodoList (titleInput.value, descriptionInput.value, 
         itemsInput.value,formattedDate, priorityValue)
             //Add list to list array//
-          addListToArr(list)
+        
+            //   addListToArr(list)
+
+            getCurrentProject().listArray.push(list)
         
          //Function to display list card on page//
         createListCard(list)
-        console.log('Initial List with no edits:', list)
+        
+        
         
 
         listModal.close()
@@ -205,9 +209,6 @@ if (project) {
     project.content.appendChild(listCard)
     
 }
-
-
-
 
 
 
@@ -280,7 +281,7 @@ editBtn.addEventListener('click', (e)=> {
 const deleteBtn = document.createElement('button');
 deleteBtn.textContent = 'Delete';
 deleteBtn.classList.add('delete-btn');
-const listIndex = listArray.length -1;
+const listIndex = getCurrentProject().listArray.length -1;
 deleteBtn.setAttribute('data-index', listIndex)
 rightSideContainer.appendChild(deleteBtn);
 

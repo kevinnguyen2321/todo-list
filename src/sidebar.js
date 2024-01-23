@@ -35,8 +35,12 @@ export const createUserSelectionModal = function () {
 
  // New todolist btn event listener//
  addNewTodoListBtn.addEventListener('click', (e)=> {
-        const {listModal} = createListForm
-        listModal.showModal()
+        // const {listModal} = createListForm
+        // listModal.showModal()
+        const todo = new Project('todo')
+        setCurrentProject(todo)
+        createContent(todo)
+
         plusDialog.close()
     });
 

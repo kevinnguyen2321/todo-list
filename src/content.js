@@ -2,7 +2,7 @@ import { listArray } from "./create-list";
 import { loadPageLayout, createListForm, createListCard } from "./dom"
 import { projectArray, Project } from "./project-func";
 import { createNewProjectModal, project } from "./sidebar";
-import { getCurrentProject } from "./projectManager";
+import { getCurrentProject, setCurrentProject } from "./projectManager";
 
 
 
@@ -18,20 +18,36 @@ export const createContent = function (value) {
   
    projectHeader.textContent = value
 
-   
-   //Get project based on project name//
-   const project = getProjectByName(value)
+   // //Get project based on project name//
+     const project = getProjectByName(value)
+   setCurrentProject(project)
    //Clear current content//
    content.innerHTML = ''
-   // Append project's content on content div
+   // Append project's content on content div//
    content.appendChild(project.content)
-   console.log(project.name)
-   console.log(project.content)
 
    
    
-
    
+   
+   
+   //Trial//
+   //  if (value === 'todo') {
+   //    projectHeader.textContent = value.name
+   //    setCurrentProject(value)
+   //    content.innerHTML = ''
+   //    content.appendChild(value.content)
+   // } else {
+   // // //Get project based on project name//
+   //    projectHeader.textContent = value
+   // const project = getProjectByName(value)
+   // setCurrentProject(project)
+   // //Clear current content//
+   // content.innerHTML = ''
+   // // Append project's content on content div//
+   // content.appendChild(project.content)
+   // }
+  
 };
 
 // Function to retrieve project by name//

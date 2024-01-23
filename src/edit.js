@@ -116,7 +116,7 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
 
        list.dueDate = formatDate(dueDateInputEdit.value)
        dueDateDisplay.textContent = list.dueDate
-       console.log('List after edits:', list)
+       
 
 
        

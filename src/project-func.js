@@ -9,6 +9,7 @@ export const projectArray = [];
 export class Project  {
      constructor(name) {
       this.name = name
+      this.listArray = [];
       this.content = document.createElement('div')
      }
   

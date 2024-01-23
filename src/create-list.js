@@ -1,6 +1,6 @@
 import {format} from "date-fns";
 // List array//
-export const listArray = [];
+// export const listArray = [];
 
 
 //Class for new list//
@@ -32,9 +32,9 @@ export class TodoList {
 }
 
 // Function to add list to array//
-export const addListToArr = function(list) {
-    listArray.push(list)
-}
+// export const addListToArr = function(list) {
+//     listArray.push(list)
+// }
 
 // Function for formatting date//
 export const formatDate = function(date) {
