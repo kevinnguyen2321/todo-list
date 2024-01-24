@@ -9,9 +9,7 @@ import { getCurrentProject } from "./projectManager";
 export const deleteListItem = function(deleteBtn) {
     const cards = document.querySelectorAll('.list-card');
     const dataIndex = parseInt(deleteBtn.getAttribute('data-index'))
-    // let cardToDelete = cards[dataIndex]
-    // cardToDelete.remove();
-    // listArray.splice(dataIndex,1)
+  
 
     if (dataIndex >= 0 && dataIndex < cards.length) {
         let cardToDelete = cards[dataIndex];

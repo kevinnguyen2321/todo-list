@@ -12,42 +12,22 @@ import { getCurrentProject, setCurrentProject } from "./projectManager";
 
 
  // Function to handle content based on project//
-export const createContent = function (value) {
+export const createProjContent = function (value) {
  
    const {projectHeader,content} = loadPageLayout
-  
-   projectHeader.textContent = value
+      
+     
+ projectHeader.textContent = value
 
-   // //Get project based on project name//
+ 
+// //Get project based on project name//
      const project = getProjectByName(value)
-   setCurrentProject(project)
-   //Clear current content//
-   content.innerHTML = ''
-   // Append project's content on content div//
-   content.appendChild(project.content)
+     setCurrentProject(project)
+     //Clear current content//
+     content.innerHTML = ''
+     // Append project's content on content div//
+     content.appendChild(project.content)
 
-   
-   
-   
-   
-   
-   //Trial//
-   //  if (value === 'todo') {
-   //    projectHeader.textContent = value.name
-   //    setCurrentProject(value)
-   //    content.innerHTML = ''
-   //    content.appendChild(value.content)
-   // } else {
-   // // //Get project based on project name//
-   //    projectHeader.textContent = value
-   // const project = getProjectByName(value)
-   // setCurrentProject(project)
-   // //Clear current content//
-   // content.innerHTML = ''
-   // // Append project's content on content div//
-   // content.appendChild(project.content)
-   // }
-  
 };
 
 // Function to retrieve project by name//
@@ -56,9 +36,14 @@ const getProjectByName = (name) => {
 }
 
       
-
-   
-
+// Function to create content for non Project Todo Lists//
+export const createToDoContent = function (value) {
+   const {projectHeader, content} = loadPageLayout
+   projectHeader.textContent = 'Todo'
+   setCurrentProject(value)
+   content.innerHTML = ''
+   content.appendChild(value.content)
+}
 
 
 

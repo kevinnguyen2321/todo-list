@@ -1,7 +1,8 @@
 import { createListCard, createListForm, loadPageLayout } from "./dom";
-import { createContent } from "./content";
+import { createProjContent, createToDoContent } from "./content";
 import { addProjectToArr, Project, projectArray } from "./project-func";
 import { setCurrentProject,getCurrentProject } from "./projectManager";
+
 
 
  //Function to create user selection modal//
@@ -39,10 +40,16 @@ export const createUserSelectionModal = function () {
         // listModal.showModal()
         const todo = new Project('todo')
         setCurrentProject(todo)
-        createContent(todo)
-
-        plusDialog.close()
+        createToDoContent(todo)
+       plusDialog.close()
+       // Todolist header on side bar event listener//
+       const {sideBarTodoHeader} = loadPageLayout
+       sideBarTodoHeader.addEventListener('click', (e)=> {
+           createToDoContent(todo)
+       });
     });
+
+   
 
  // Add new project btn// 
 const addNewProjectBtn = document.createElement('button');
@@ -136,7 +143,7 @@ export const createProjectNameCard = function (value) {
     projectHeaderContainer.appendChild(projectNameCard)
 
     projectNameCard.addEventListener('click', (e)=> {
-        createContent(projectNameCard.textContent)
+        createProjContent(projectNameCard.textContent)
     });
 
    

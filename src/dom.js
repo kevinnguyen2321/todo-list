@@ -11,6 +11,7 @@ import { getCurrentProject } from "./projectManager";
 
 
 
+
 // Initial page load//
 export const loadPageLayout = (function() {
     const mainContainer = document.createElement('div')
@@ -85,6 +86,8 @@ export const loadPageLayout = (function() {
     const sideBarTodoHeader = document.createElement('h3')
     sideBarTodoHeader.textContent = 'Todo Lists'
     sideBarTopContainer.appendChild(sideBarTodoHeader)
+
+   
     
 
     //Side bar project header//
