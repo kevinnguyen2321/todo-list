@@ -1,4 +1,3 @@
-import {listArray} from "./create-list"
 import { getCurrentProject } from "./projectManager";
 
 
@@ -17,8 +16,7 @@ export const deleteListItem = function(deleteBtn) {
         // Check if the card to delete is defined before removing
         if (cardToDelete) {
             cardToDelete.remove();
-            // listArray.splice(dataIndex, 1);
-
+            
             getCurrentProject().listArray.splice(dataIndex,1)
 
             // Update list card indices after removal

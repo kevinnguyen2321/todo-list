@@ -2,7 +2,7 @@ import { createListCard, createListForm, loadPageLayout } from "./dom";
 import { createProjContent, createToDoContent } from "./content";
 import { addProjectToArr, Project, projectArray } from "./project-func";
 import { setCurrentProject,getCurrentProject } from "./projectManager";
-
+import { deleteProjectCard, updateProjectIndex } from "./delete-project";
 
 
  //Function to create user selection modal//
@@ -136,15 +136,40 @@ export const createProjectNameCard = function (value) {
     const {sideBar, projectHeaderContainer, contentContainer, content} = loadPageLayout
     const {projectNameInput} = createNewProjectModal()
     const  {project} = createNewProjectModal()
-    //Creation of new project headers on sidebar//
+    //Creation of new project cards on sidebar//
     const projectNameCard = document.createElement('div')
     projectNameCard.classList.add('side-bar-project-cards')
     projectNameCard.textContent = value
     projectHeaderContainer.appendChild(projectNameCard)
 
+    //Project delete button//
+    const projectDeleteBtn = document.createElement('button')
+    projectDeleteBtn.textContent = 'X'
+    projectDeleteBtn.classList.add('side-bar-project-delete')
+    const projIndex = projectArray.length;
+    projectDeleteBtn.setAttribute('index', projIndex)
+    projectNameCard.appendChild(projectDeleteBtn)
+     
+    //Event listener for project name sidebar//
     projectNameCard.addEventListener('click', (e)=> {
-        createProjContent(projectNameCard.textContent)
+        if (!e.target.classList.contains('side-bar-project-delete')) {
+            createProjContent(value);
+        }
     });
+     
+    //Event listener for project delete button//
+    projectDeleteBtn.addEventListener('click', (e) => {
+        // Prevent the click event from propagating to the parent div
+        e.stopPropagation();
+        const userConfirmed = confirm("Are you sure you want to delete this project? ")
+        if (userConfirmed) {
+            deleteProjectCard(projectDeleteBtn);
+            updateProjectIndex();
+        }
+        
+        
+        
+    });   
 
    
     

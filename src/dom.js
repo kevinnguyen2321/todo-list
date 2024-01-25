@@ -6,12 +6,6 @@ import { viewListDetails } from "./view";
 import { createUserSelectionModal, createNewProjectModal} from "./sidebar";
 import { getCurrentProject } from "./projectManager";
 
-
-
-
-
-
-
 // Initial page load//
 export const loadPageLayout = (function() {
     const mainContainer = document.createElement('div')
@@ -25,8 +19,7 @@ export const loadPageLayout = (function() {
     headerText.textContent = 'My Todo List'
     header.appendChild(headerText)
     mainContainer.appendChild(header)
-
-
+    
     //Content section//
 
     //Content container//
@@ -54,9 +47,6 @@ export const loadPageLayout = (function() {
     const content = document.getElementById('content');
     contentContainer.appendChild(content)
 
-    
-
-    
     //Side bar//
     const sideBar = document.createElement('div')
     sideBar.classList.add('side-bar');
@@ -87,10 +77,7 @@ export const loadPageLayout = (function() {
     sideBarTodoHeader.textContent = 'Todo Lists'
     sideBarTopContainer.appendChild(sideBarTodoHeader)
 
-   
-    
-
-    //Side bar project header//
+   //Side bar project header//
     
     //Sidebar project text container// 
     const projectHeaderContainer = document.createElement('div')
@@ -103,21 +90,12 @@ export const loadPageLayout = (function() {
     sideBar.appendChild(projectHeaderContainer)
 
 
-   
-
-   
-
-
-
-   
     return {content,sideBar, plusBtn, 
     projectHeaderContainer,
     contentContainer, projectHeader,
      mainContainer, addButton, sideBarTodoHeader}
 
 })()
-
-
 
 // Function to create form for list creation and adding to DOM//
 export const createListForm = (function () {
@@ -212,8 +190,6 @@ if (project) {
     project.content.appendChild(listCard)
     
 }
-
-
 
 // Left side containder for List card//
 const leftSideContainer = document.createElement('div');

@@ -155,6 +155,20 @@ body {
     border: solid black;
     display: flex;
     justify-content: center;
+    position: relative;
+}
+
+.side-bar-project-delete {
+    position: absolute;
+    color: red;
+    top: 0;
+    right: 0;
+    font-size: 1.3rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    line-height: 1;
 }
 
 
