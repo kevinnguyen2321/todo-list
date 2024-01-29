@@ -3,8 +3,32 @@ import { listArray,TodoList, addListToArr,formatDate,handlePriorityBtns } from "
 import { deleteListItem,updateIndex } from "./delete-list";
 import {createEditForm } from "./edit";
 import { viewListDetails } from "./view";
-import { createUserSelectionModal, createNewProjectModal} from "./sidebar";
-import { getCurrentProject } from "./projectManager";
+import { createUserSelectionModal, createNewProjectModal, createProjectNameCard} from "./sidebar";
+import { getCurrentProject, setCurrentProject } from "./projectManager";
+import { getProjectsFromLocalStorage, addProjToLocalStorage } from "./local-storage";
+import { projectArray } from "./project-func";
+import { createProjContent } from "./content";
+import { updateProjectIndex } from "./delete-project";
+
+// Event listener to add any projects from local storage onto DOM//
+document.addEventListener('DOMContentLoaded', ()=> {
+      
+    projectArray.forEach(project => {
+        createProjectNameCard(project.name)
+        project.content = document.createElement('div')
+        updateProjectIndex()
+        
+
+        project.listArray.forEach(list => {
+            setCurrentProject(project)
+            createListCard(list)
+            
+        });
+    });
+});
+
+
+
 
 // Initial page load//
 export const loadPageLayout = (function() {
@@ -92,7 +116,7 @@ export const loadPageLayout = (function() {
 
     return {content,sideBar, plusBtn, 
     projectHeaderContainer,
-    contentContainer, projectHeader,
+    contentContainer, content, projectHeader,
      mainContainer, addButton, sideBarTodoHeader}
 
 })()
@@ -151,25 +175,31 @@ export const createListForm = (function () {
     //Submit button event listener//
     submitBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        //Call function to formate date//
-        const formattedDate = formatDate(dueDateInput.value)
+        const dueDateValue = dueDateInput.value
+        
+        
+            if (titleInput.value == '' || itemsInput.value == ''
+            || !dueDateValue || priorityValue == '') {
+                alert('Please fill out fields')
+                
+            } else {
+                   //Call function to formate date//
+                const formattedDate = formatDate(dueDateValue)
 
-    // Creating new TodoList instance//
-    const list = new TodoList (titleInput.value, descriptionInput.value, 
-        itemsInput.value,formattedDate, priorityValue)
-            //Add list to list array//
-        
-            //   addListToArr(list)
+                // Creating new TodoList instance//
+                const list = new TodoList (titleInput.value, descriptionInput.value, 
+                itemsInput.value,formattedDate, priorityValue)
+        //Add list to list array property//
+      
+          getCurrentProject().listArray.push(list)
+      
+      //Function to display list card on page//
+      createListCard(list)
+    listModal.close()
 
-            getCurrentProject().listArray.push(list)
+        }
         
-         //Function to display list card on page//
-        createListCard(list)
-        
-        
-        
-
-        listModal.close()
+             
     }); 
     
    return {listModal}
@@ -188,7 +218,7 @@ const project = getCurrentProject()
 
 if (project) {
     project.content.appendChild(listCard)
-    
+    addProjToLocalStorage();
 }
 
 // Left side containder for List card//
@@ -260,15 +290,24 @@ editBtn.addEventListener('click', (e)=> {
 const deleteBtn = document.createElement('button');
 deleteBtn.textContent = 'Delete';
 deleteBtn.classList.add('delete-btn');
-const listIndex = getCurrentProject().listArray.length -1;
-deleteBtn.setAttribute('data-index', listIndex)
+// const listIndex = getCurrentProject().listArray.length -1;
+// deleteBtn.setAttribute('data-index', listIndex)
+const projectIndex = projectArray.indexOf(project);
+const listIndex = project.listArray.indexOf(list);
+
+console.log('Project Index:', projectIndex);
+console.log('List Index:', listIndex);
+
+deleteBtn.setAttribute('data-project-index', projectIndex);
+deleteBtn.setAttribute('data-list-index', listIndex);
 rightSideContainer.appendChild(deleteBtn);
 
 //Event listener for delete button// 
   deleteBtn.addEventListener('click', ()=> {
     deleteListItem(deleteBtn)
-    updateIndex()
-  });
+   addProjToLocalStorage()
+   updateIndex()
+});
 
 };
 

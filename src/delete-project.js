@@ -1,6 +1,7 @@
 import { projectArray} from "./project-func";
 import { setCurrentProject } from "./projectManager";
 import { loadPageLayout } from "./dom";
+import { addProjToLocalStorage } from "./local-storage";
 //Function to delete project cards//
 export const deleteProjectCard = function (projectDeleteBtn) {
     const projCards = document.querySelectorAll('.side-bar-project-cards');
@@ -16,8 +17,10 @@ export const deleteProjectCard = function (projectDeleteBtn) {
     const {projectHeader, content} = loadPageLayout
     projectHeader.textContent = ''
     content.innerHTML = ''
+    addProjToLocalStorage();
+};
     
-}
+
 
     
 //Function to update project indexes//

@@ -3,6 +3,9 @@ import { createProjContent, createToDoContent } from "./content";
 import { addProjectToArr, Project, projectArray } from "./project-func";
 import { setCurrentProject,getCurrentProject } from "./projectManager";
 import { deleteProjectCard, updateProjectIndex } from "./delete-project";
+import { addProjToLocalStorage,getProjectsFromLocalStorage } from "./local-storage";
+
+
 
 
  //Function to create user selection modal//
@@ -60,8 +63,12 @@ plusDialogContainer.appendChild(addNewProjectBtn);
 //Add new project event listner// 
 
     addNewProjectBtn.addEventListener('click', (e)=> {
-        content.appendChild(newProjectDialog)
+        const {projectHeader, contentContainer} = loadPageLayout
+        contentContainer.appendChild(newProjectDialog)
         newProjectDialog.showModal()
+        projectHeader.textContent = ''
+        content.innerHTML = ''
+
         plusDialog.close()
     });
 
@@ -118,8 +125,9 @@ export const createNewProjectModal = function () {
         const projectName = projectNameInput.value
         const project = new Project (projectName)
         createProjectNameCard(projectName)
-        addProjectToArr(project)
-        setCurrentProject(project)
+        addProjectToArr(project);
+        setCurrentProject(project);
+        addProjToLocalStorage();
         newProjectDialog.close()
         
     });
