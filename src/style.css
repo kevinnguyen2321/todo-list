@@ -86,6 +86,12 @@ body {
     border-radius: 12px;
 }
 
+.remove-btn {
+    width: 60px;
+    border-radius: 12px;
+    font-size: .67rem;
+}
+
 .list-title {
     display: flex;
 }
@@ -291,4 +297,9 @@ form {
     width: 80px;
    height: 40px;
 
+}
+
+
+.hidden {
+    display: none;
 }

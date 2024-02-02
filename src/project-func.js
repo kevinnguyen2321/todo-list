@@ -1,10 +1,19 @@
 import{loadPageLayout} from "./dom.js"
 import { getProjectsFromLocalStorage } from "./local-storage.js";
+import { getTodoFromLocalStorage } from "./local-storage.js";
+
+
+//Array for todos//
+
+export const todoArray = getTodoFromLocalStorage()
+// export const todoArray = []
 
 
 
+
+//Array for projects//
 export const projectArray = getProjectsFromLocalStorage()
-// export const projectArray = [];
+
 
 
 export class Project  {
@@ -24,7 +33,7 @@ export class Project  {
   //Pushing project instances into project array//
 export const addProjectToArr = function (project) {
     projectArray.push(project)
-    const{content} = loadPageLayout
+    // const{content} = loadPageLayout
    
 }
 

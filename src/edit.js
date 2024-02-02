@@ -1,4 +1,7 @@
 import { formatDate,handlePriorityBtns } from "./create-list"
+import { addProjToLocalStorage, addTodoToLocalStorage } from "./local-storage"
+import { loadPageLayout } from "./dom"
+
 
 
 export const createEditForm = function (list, contentTitle, dueDateDisplay) {
@@ -118,7 +121,12 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
        dueDateDisplay.textContent = list.dueDate
        
 
-
+       const {projectHeader} = loadPageLayout
+       if (projectHeader.textContent === 'Todo') {
+        addTodoToLocalStorage();
+       } else {
+        addProjToLocalStorage()
+        }
        
        editDialog.close()
 

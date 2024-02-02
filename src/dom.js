@@ -1,14 +1,18 @@
 // import {format} from "date-fns";
 import { listArray,TodoList, addListToArr,formatDate,handlePriorityBtns } from "./create-list"
-import { deleteListItem,updateIndex } from "./delete-list";
+import { deleteListItem,updateIndex, deleteTodoListItems, updateTodoIndex } from "./delete-list";
 import {createEditForm } from "./edit";
 import { viewListDetails } from "./view";
 import { createUserSelectionModal, createNewProjectModal, createProjectNameCard} from "./sidebar";
 import { getCurrentProject, setCurrentProject } from "./projectManager";
-import { getProjectsFromLocalStorage, addProjToLocalStorage } from "./local-storage";
-import { projectArray } from "./project-func";
+import { getProjectsFromLocalStorage, addProjToLocalStorage, addTodoToLocalStorage, getTodoFromLocalStorage } from "./local-storage";
+import { projectArray,todoArray } from "./project-func";
 import { createProjContent } from "./content";
 import { updateProjectIndex } from "./delete-project";
+import { removeTodoFromArr } from "./todo-fun";
+import { add } from "date-fns";
+
+
 
 // Event listener to add any projects from local storage onto DOM//
 document.addEventListener('DOMContentLoaded', ()=> {
@@ -25,7 +29,25 @@ document.addEventListener('DOMContentLoaded', ()=> {
             
         });
     });
+   
+   
+  
+   todoArray.forEach(item => {
+        
+        item.content = document.createElement('div')
+        
+        item.listArray.forEach((list,index) => {
+            setCurrentProject(item)
+            const {projectHeader} = loadPageLayout
+            projectHeader.textContent = 'Todo'
+            createListCard(list)
+        });
+    });
+
+    
 });
+
+
 
 
 
@@ -63,8 +85,11 @@ export const loadPageLayout = (function() {
     const projectHeader = document.createElement('h1')
     addBtnContainer.insertBefore(projectHeader, addButton);
     projectHeader.classList.add('project-header-text')
-
     
+        
+    
+   
+   
     contentContainer.appendChild(addBtnContainer)
 
     // // Content DOM//
@@ -136,6 +161,8 @@ export const createListForm = (function () {
     let priorityValue;
     const {addButton} = loadPageLayout
 
+    
+
     // Add button event listener//
     addButton.addEventListener('click', (e) => {
         // Clear values after submit button is clicked//
@@ -196,19 +223,22 @@ export const createListForm = (function () {
       //Function to display list card on page//
       createListCard(list)
     listModal.close()
+    
 
         }
         
              
     }); 
     
-   return {listModal}
+   return {listModal, titleInput, descriptionInput, itemsInput,
+    dueDateInput, priorityValue, highPriorityBtn,lowPriorityBtn
+}
    
 })();
 
 // Function to display Todo list cards on page//
 
-export const createListCard = function (list) {
+export const createListCard = function (list, index) {
    
     
 const listCard = document.createElement('div');
@@ -216,7 +246,11 @@ listCard.classList.add('list-card');
 // content.appendChild(listCard);
 const project = getCurrentProject()
 
-if (project) {
+if (project.name === 'todo') {
+    project.content.appendChild(listCard)
+    addTodoToLocalStorage()
+  
+} else {
     project.content.appendChild(listCard)
     addProjToLocalStorage();
 }
@@ -245,6 +279,7 @@ leftSideContainer.appendChild(labelForCheckBox)
 
 checkBox.addEventListener('change', ()=>{
     listCard.classList.toggle('completed', checkBox.checked);
+    
 });
 
 
@@ -286,29 +321,92 @@ editBtn.addEventListener('click', (e)=> {
     editDialog.showModal()
 });
 
-// Delete button//
+const {projectHeader} = loadPageLayout
+if (projectHeader.textContent ==='Todo') {
+    const removeBtn = document.createElement('button')
+    removeBtn.textContent = 'Remove'
+    removeBtn.classList.add('remove-btn')
+
+    const todoListIndex = getCurrentProject().listArray.length -1;
+removeBtn.setAttribute('data-index', todoListIndex)
+// removeBtn.setAttribute('data-index', index); //trial//
+
+    rightSideContainer.appendChild(removeBtn)
+
+    removeBtn.addEventListener('click', (e)=> {
+        // deleteTodoListItems(removeBtn)
+        // addTodoToLocalStorage()
+       // updateTodoIndex()
+       removeTodoFromArr(index)
+       listCard.remove()
+    });
+
+    
+
+
+} else {
+    // Delete button//
 const deleteBtn = document.createElement('button');
 deleteBtn.textContent = 'Delete';
 deleteBtn.classList.add('delete-btn');
-// const listIndex = getCurrentProject().listArray.length -1;
-// deleteBtn.setAttribute('data-index', listIndex)
+
+
 const projectIndex = projectArray.indexOf(project);
 const listIndex = project.listArray.indexOf(list);
 
-console.log('Project Index:', projectIndex);
-console.log('List Index:', listIndex);
-
 deleteBtn.setAttribute('data-project-index', projectIndex);
 deleteBtn.setAttribute('data-list-index', listIndex);
+
+
+
+
+
+// const listIndex = getCurrentProject().listArray.length -1;
+// deleteBtn.setAttribute('data-index', listIndex)
+
 rightSideContainer.appendChild(deleteBtn);
 
 //Event listener for delete button// 
-  deleteBtn.addEventListener('click', ()=> {
+deleteBtn.addEventListener('click', ()=> {
     deleteListItem(deleteBtn)
-   addProjToLocalStorage()
-   updateIndex()
-});
+    addProjToLocalStorage();
+    updateIndex(listIndex, projectIndex)
+    console.log(projectArray)
+ });
 
+}
+
+// // Delete button//
+// const deleteBtn = document.createElement('button');
+// deleteBtn.textContent = 'Delete';
+// deleteBtn.classList.add('delete-btn');
+
+
+// const projectIndex = projectArray.indexOf(project);
+// const listIndex = project.listArray.indexOf(list);
+
+// deleteBtn.setAttribute('data-project-index', projectIndex);
+// deleteBtn.setAttribute('data-list-index', listIndex);
+
+
+
+
+
+// // const listIndex = getCurrentProject().listArray.length -1;
+// // deleteBtn.setAttribute('data-index', listIndex)
+
+// rightSideContainer.appendChild(deleteBtn);
+
+
+// //Event listener for delete button// 
+//   deleteBtn.addEventListener('click', ()=> {
+//     deleteListItem(deleteBtn)
+//     addProjToLocalStorage();
+//     updateIndex(listIndex, projectIndex)
+//     console.log(projectArray)
+//  });
+
+ 
 };
 
 

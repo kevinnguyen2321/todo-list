@@ -1,11 +1,11 @@
 import { createListCard, createListForm, loadPageLayout } from "./dom";
 import { createProjContent, createToDoContent } from "./content";
-import { addProjectToArr, Project, projectArray } from "./project-func";
+import { addProjectToArr, Project, projectArray, todoArray } from "./project-func";
 import { setCurrentProject,getCurrentProject } from "./projectManager";
 import { deleteProjectCard, updateProjectIndex } from "./delete-project";
-import { addProjToLocalStorage,getProjectsFromLocalStorage } from "./local-storage";
-
-
+import { addProjToLocalStorage,getProjectsFromLocalStorage, addTodoToLocalStorage} from "./local-storage";
+import { checkForMultipleTodoObjs} from "./todo-fun";
+import { updateTodoIndex } from "./delete-list";
 
 
  //Function to create user selection modal//
@@ -39,18 +39,49 @@ export const createUserSelectionModal = function () {
 
  // New todolist btn event listener//
  addNewTodoListBtn.addEventListener('click', (e)=> {
-        // const {listModal} = createListForm
-        // listModal.showModal()
-        const todo = new Project('todo')
-        setCurrentProject(todo)
-        createToDoContent(todo)
-       plusDialog.close()
-       // Todolist header on side bar event listener//
-       const {sideBarTodoHeader} = loadPageLayout
-       sideBarTodoHeader.addEventListener('click', (e)=> {
-           createToDoContent(todo)
-       });
+        
+    const existingTodoProject = todoArray.find
+    (todo => todo.name === 'todo');
+
+    if (existingTodoProject) {
+        // If "todo" project exists, update it
+        setCurrentProject(existingTodoProject);
+        createToDoContent(existingTodoProject);
+        
+        
+        const {sideBarTodoHeader} = loadPageLayout
+     sideBarTodoHeader.addEventListener('click', (e)=> {
+         createToDoContent(existingTodoProject)
+         
+         
+     });
+    } else {
+        // If "todo" project doesn't exist, create a new instance
+        const todo = new Project('todo');
+        setCurrentProject(todo);
+        createToDoContent(todo);
+        todoArray.push(todo);
+       
+        // Todolist header on side bar event listener//
+     const {sideBarTodoHeader} = loadPageLayout
+     sideBarTodoHeader.addEventListener('click', (e)=> {
+         createToDoContent(todo)
+         
+         
+     });
+    }
+   
+    plusDialog.close()
+
+    //    // Todolist header on side bar event listener//
+    //  const {sideBarTodoHeader} = loadPageLayout
+    //  sideBarTodoHeader.addEventListener('click', (e)=> {
+    //      createToDoContent(todo)
+         
+    //  });
     });
+
+     
 
    
 
