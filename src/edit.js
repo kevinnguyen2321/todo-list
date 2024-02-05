@@ -15,7 +15,7 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
     //Title label & input//
     const titleLabelEdit = document.createElement('label')
     titleLabelEdit.setAttribute('for', 'title')
-    titleLabelEdit.textContent = 'Title'
+    titleLabelEdit.textContent = 'Title*'
 
     const titleInputEdit = document.createElement('input')
     titleInputEdit.setAttribute('type', 'text')
@@ -29,7 +29,7 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
     // Description label & input//
     const descriptionLabelEdit = document.createElement('label');
     descriptionLabelEdit.setAttribute('for', 'description')
-    descriptionLabelEdit.textContent = 'Description';
+    descriptionLabelEdit.textContent = 'Description*';
 
     const descriptionInputEdit = document.createElement('input')
     descriptionInputEdit.setAttribute('type', 'text')
@@ -42,7 +42,7 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
     // List items/tasks label & input//
     const itemsLabelEdit = document.createElement('label')
     itemsLabelEdit.setAttribute('for', 'items')
-    itemsLabelEdit.textContent = 'List items/Tasks'
+    itemsLabelEdit.textContent = 'List items/Tasks*'
 
     const itemsInputEdit = document.createElement('input')
     itemsInputEdit.setAttribute('type', 'text')
@@ -55,7 +55,7 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
     //Due date label & input//
     const dueDateLabelEdit = document.createElement('label')
     dueDateLabelEdit.setAttribute('for', 'due-date')
-    dueDateLabelEdit.textContent = 'Due Date'
+    dueDateLabelEdit.textContent = 'Due Date*'
 
     const dueDateInputEdit = document.createElement('input')
     dueDateInputEdit.setAttribute('type', 'date')
@@ -104,32 +104,44 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
     const confirmEditBtn = document.createElement('button')
     confirmEditBtn.textContent = 'Confirm Edit';
     editForm.appendChild(confirmEditBtn)
+
+    
+    
      
     
     //Confirm edit button event listener//
     confirmEditBtn.addEventListener('click', (e) =>{
         e.preventDefault();
-       
-       list.title = titleInputEdit.value;
-       contentTitle.textContent = titleInputEdit.value
+        const dueDateEditValue = dueDateInputEdit.value
 
-       list.description = descriptionInputEdit.value
-       
-       list.items = itemsInputEdit.value
+        if (titleInputEdit.value === ''|| descriptionInputEdit.value === '' 
+        || itemsInputEdit.value === '' || !dueDateEditValue  ) {
+            alert('Please fill out required * fields')
+        } else {
+            list.title = titleInputEdit.value;
+            contentTitle.textContent = titleInputEdit.value
 
-       list.dueDate = formatDate(dueDateInputEdit.value)
-       dueDateDisplay.textContent = list.dueDate
+            list.description = descriptionInputEdit.value
        
+            list.items = itemsInputEdit.value
 
+            list.dueDate = formatDate(dueDateInputEdit.value)
+            dueDateDisplay.textContent = list.dueDate
+            //Check to if it's a project or todo then store it//
        const {projectHeader} = loadPageLayout
        if (projectHeader.textContent === 'Todo') {
         addTodoToLocalStorage();
        } else {
         addProjToLocalStorage()
         }
+        
        
        editDialog.close()
 
+
+        }
+       
+       
     
     });
 

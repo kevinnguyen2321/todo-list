@@ -10,6 +10,7 @@ export class TodoList {
         this.items = items
         this.dueDate = dueDate
         this.priority = priority
+        this.checked = false
     }
 
     set listTitle (x) {
@@ -26,6 +27,10 @@ export class TodoList {
     }
     set listPriority (x) {
         this.priority = `${x}`
+    }
+
+    set listChecked (x) {
+        this.checked = `${x}`
     }
 
 }

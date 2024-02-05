@@ -23,9 +23,22 @@ document.addEventListener('DOMContentLoaded', ()=> {
         updateProjectIndex()
         
 
-        project.listArray.forEach(list => {
+        project.listArray.forEach((list, index) => {
             setCurrentProject(project)
-            createListCard(list)
+            createListCard(list,index)
+            
+            const listCards = project.content.querySelectorAll('.list-card');
+            const listCard = listCards[index]
+            const checkbox = listCard.querySelector('input[type="checkbox"]');
+
+            if (list.checked) {
+                listCard.classList.add('completed');
+                checkbox.checked = true;
+            } else {
+                listCard.classList.remove('completed');
+                checkbox.checked = false;
+            }
+            
             
         });
     });
@@ -40,16 +53,24 @@ document.addEventListener('DOMContentLoaded', ()=> {
             setCurrentProject(item)
             const {projectHeader} = loadPageLayout
             projectHeader.textContent = 'Todo'
-            createListCard(list)
+            createListCard(list, index)
+
+            const listCards = item.content.querySelectorAll('.list-card')
+            const listCard = listCards[index]
+            const checkbox = listCard.querySelector('input[type="checkbox"')
+            
+            if (list.checked) {
+               listCard.classList.add('completed');
+               checkbox.checked = true
+            } else {
+                listCard.classList.remove('completed')
+                checkbox.checked = false
+            }
         });
     });
 
     
 });
-
-
-
-
 
 
 // Initial page load//
@@ -78,18 +99,14 @@ export const loadPageLayout = (function() {
     addBtnContainer.classList.add('add-btn-container')
     const addButton = document.createElement('button');
     addButton.textContent = 'Add Task'
-    addButton.classList.add('add-btn')
+    addButton.classList.add('hidden')
     addBtnContainer.appendChild(addButton)
-
-    //Header for project/todolist//
+    
+     //Header for project/todolist//
     const projectHeader = document.createElement('h1')
     addBtnContainer.insertBefore(projectHeader, addButton);
     projectHeader.classList.add('project-header-text')
     
-        
-    
-   
-   
     contentContainer.appendChild(addBtnContainer)
 
     // // Content DOM//
@@ -207,7 +224,7 @@ export const createListForm = (function () {
         
             if (titleInput.value == '' || itemsInput.value == ''
             || !dueDateValue || priorityValue == '') {
-                alert('Please fill out fields')
+                alert('Please fill out required * fields')
                 
             } else {
                    //Call function to formate date//
@@ -279,8 +296,45 @@ leftSideContainer.appendChild(labelForCheckBox)
 
 checkBox.addEventListener('change', ()=>{
     listCard.classList.toggle('completed', checkBox.checked);
-    
+    // if (checkBox.checked && projectHeader.textContent !== 'Todo') {
+    //     // addProjToLocalStorage();
+    //     project.checked = true
+    //     addProjToLocalStorage()
+        
+    // } else if (checkBox.checked && projectHeader.textContent === 'Todo') {
+    //     project.checked = true
+    //     addTodoToLocalStorage()
+    // } else {
+    //     project.checked = false
+    //     addProjToLocalStorage();
+    //     addTodoToLocalStorage()
+    // }
+    if (checkBox.checked) {
+        list.checked = true
+        if (projectHeader.textContent === 'Todo') {
+            addTodoToLocalStorage();
+            
+        } else if (projectHeader.textContent !== 'Todo') {
+            addProjToLocalStorage();
+            
+        }
+    } else if (!checkBox.checked) {
+        list.checked = false
+        if (projectHeader.textContent === 'Todo') {
+            addTodoToLocalStorage()
+        } else if (projectHeader.textContent !== 'Todo') {
+            addProjToLocalStorage()
+            
+        }
+        
+    } 
+
+   
 });
+
+
+
+
 
 
 //View button//
@@ -329,20 +383,14 @@ if (projectHeader.textContent ==='Todo') {
 
     const todoListIndex = getCurrentProject().listArray.length -1;
 removeBtn.setAttribute('data-index', todoListIndex)
-// removeBtn.setAttribute('data-index', index); //trial//
+
 
     rightSideContainer.appendChild(removeBtn)
 
     removeBtn.addEventListener('click', (e)=> {
-        // deleteTodoListItems(removeBtn)
-        // addTodoToLocalStorage()
-       // updateTodoIndex()
-       removeTodoFromArr(index)
+        removeTodoFromArr(index)
        listCard.remove()
     });
-
-    
-
 
 } else {
     // Delete button//
@@ -358,12 +406,6 @@ deleteBtn.setAttribute('data-project-index', projectIndex);
 deleteBtn.setAttribute('data-list-index', listIndex);
 
 
-
-
-
-// const listIndex = getCurrentProject().listArray.length -1;
-// deleteBtn.setAttribute('data-index', listIndex)
-
 rightSideContainer.appendChild(deleteBtn);
 
 //Event listener for delete button// 
@@ -371,42 +413,13 @@ deleteBtn.addEventListener('click', ()=> {
     deleteListItem(deleteBtn)
     addProjToLocalStorage();
     updateIndex(listIndex, projectIndex)
-    console.log(projectArray)
+    
  });
 
 }
 
-// // Delete button//
-// const deleteBtn = document.createElement('button');
-// deleteBtn.textContent = 'Delete';
-// deleteBtn.classList.add('delete-btn');
-
-
-// const projectIndex = projectArray.indexOf(project);
-// const listIndex = project.listArray.indexOf(list);
-
-// deleteBtn.setAttribute('data-project-index', projectIndex);
-// deleteBtn.setAttribute('data-list-index', listIndex);
-
-
-
-
-
-// // const listIndex = getCurrentProject().listArray.length -1;
-// // deleteBtn.setAttribute('data-index', listIndex)
-
-// rightSideContainer.appendChild(deleteBtn);
-
-
-// //Event listener for delete button// 
-//   deleteBtn.addEventListener('click', ()=> {
-//     deleteListItem(deleteBtn)
-//     addProjToLocalStorage();
-//     updateIndex(listIndex, projectIndex)
-//     console.log(projectArray)
-//  });
-
- 
 };
 
 
+
+ 

@@ -37,3 +37,4 @@ export const removeTodoFromArr = function (index) {
     todoArray.splice(index, 1);
     addTodoToLocalStorage(); // Save changes to local storage
 }; // trial//
+

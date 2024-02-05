@@ -79,6 +79,9 @@ body {
     border: solid black;
     width: 30%;
     justify-content: space-between;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .delete-btn, .edit-btn{
@@ -149,7 +152,8 @@ body {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(auto-fit,80px);;
-    align-items: center;
+   align-items: center;
+    overflow-y: auto;
 }
 
 .side-bar-project-container h3 {
@@ -162,6 +166,10 @@ body {
     display: flex;
     justify-content: center;
     position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
 }
 
 .side-bar-project-delete {

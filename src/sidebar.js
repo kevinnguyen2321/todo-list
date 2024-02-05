@@ -1,5 +1,5 @@
 import { createListCard, createListForm, loadPageLayout } from "./dom";
-import { createProjContent, createToDoContent } from "./content";
+import { createProjContent, createToDoContent,toggleAddBtn } from "./content";
 import { addProjectToArr, Project, projectArray, todoArray } from "./project-func";
 import { setCurrentProject,getCurrentProject } from "./projectManager";
 import { deleteProjectCard, updateProjectIndex } from "./delete-project";
@@ -73,12 +73,6 @@ export const createUserSelectionModal = function () {
    
     plusDialog.close()
 
-    //    // Todolist header on side bar event listener//
-    //  const {sideBarTodoHeader} = loadPageLayout
-    //  sideBarTodoHeader.addEventListener('click', (e)=> {
-    //      createToDoContent(todo)
-         
-    //  });
     });
 
      
@@ -153,14 +147,18 @@ export const createNewProjectModal = function () {
     //Create project event listener// 
     createNewProjectBtn.addEventListener('click', (e)=> {
         e.preventDefault();
-        const projectName = projectNameInput.value
-        const project = new Project (projectName)
-        createProjectNameCard(projectName)
-        addProjectToArr(project);
-        setCurrentProject(project);
-        addProjToLocalStorage();
-        newProjectDialog.close()
-        
+
+        if (projectNameInput.value === '') {
+            alert('Project name required')
+        } else {
+            const projectName = projectNameInput.value
+            const project = new Project (projectName)
+            createProjectNameCard(projectName)
+            addProjectToArr(project);
+            setCurrentProject(project);
+            addProjToLocalStorage();
+            newProjectDialog.close()
+        }
     });
 
 
@@ -204,10 +202,9 @@ export const createProjectNameCard = function (value) {
         if (userConfirmed) {
             deleteProjectCard(projectDeleteBtn);
             updateProjectIndex();
+            toggleAddBtn()
+
         }
-        
-        
-        
     });   
 
    

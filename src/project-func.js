@@ -20,12 +20,18 @@ export class Project  {
      constructor(name) {
       this.name = name
       this.listArray = [];
-      this.content = document.createElement('div')
+      this.content = document.createElement('div');
+      // this.checked = false;
      }
+    
 
      set projContent (x) {
         this.content = `${x}`
      }
+
+    //  set projChecked (x) {
+    //   this.checked = `${x}`
+    //  }
 };
      
 

@@ -23,8 +23,7 @@ export const deleteListItem = function(deleteBtn) {
 
                 // Update list card indices after removal
                 updateIndex(listIndex, projectIndex);
-                console.log('Project Index after deletion:', projectIndex);
-                console.log('List Index after deletion:', listIndex);
+                
             } else {
                 console.error('Card to delete is undefined.');
             }
