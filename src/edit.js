@@ -30,7 +30,7 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
     // Description label & input//
     const descriptionLabelEdit = document.createElement('label');
     descriptionLabelEdit.setAttribute('for', 'description')
-    descriptionLabelEdit.textContent = 'Description*';
+    descriptionLabelEdit.textContent = 'Description(Optional)';
 
     const descriptionInputEdit = document.createElement('input')
     descriptionInputEdit.setAttribute('type', 'text')
@@ -150,7 +150,7 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
         e.preventDefault();
         const dueDateEditValue = dueDateInputEdit.value
 
-        if (titleInputEdit.value === ''|| descriptionInputEdit.value === '' 
+        if (titleInputEdit.value === ''
         || itemsInputEdit.value === '' || !dueDateEditValue  ) {
             alert('Please fill out required * fields')
         } else {
