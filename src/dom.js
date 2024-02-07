@@ -83,7 +83,7 @@ export const loadPageLayout = (function() {
     const header = document.createElement('div')
     header.classList.add('header')
     const headerText = document.createElement('h1')
-    headerText.textContent = 'My Todo List'
+    headerText.textContent = 'Todo List'
     header.appendChild(headerText)
     mainContainer.appendChild(header)
     
@@ -98,7 +98,6 @@ export const loadPageLayout = (function() {
     const addBtnContainer = document.createElement('div')
     addBtnContainer.classList.add('add-btn-container')
     const addButton = document.createElement('button');
-    addButton.textContent = 'Add Task'
     addButton.classList.add('hidden')
     addBtnContainer.appendChild(addButton)
     
@@ -126,7 +125,6 @@ export const loadPageLayout = (function() {
     //Plus button//
     const plusBtn = document.createElement('button')
     plusBtn.classList.add('plus-btn')
-    plusBtn.textContent = '+'
     sideBarTopContainer.appendChild(plusBtn)
 
     // Plus button event listener//
@@ -296,19 +294,7 @@ leftSideContainer.appendChild(labelForCheckBox)
 
 checkBox.addEventListener('change', ()=>{
     listCard.classList.toggle('completed', checkBox.checked);
-    // if (checkBox.checked && projectHeader.textContent !== 'Todo') {
-    //     // addProjToLocalStorage();
-    //     project.checked = true
-    //     addProjToLocalStorage()
-        
-    // } else if (checkBox.checked && projectHeader.textContent === 'Todo') {
-    //     project.checked = true
-    //     addTodoToLocalStorage()
-    // } else {
-    //     project.checked = false
-    //     addProjToLocalStorage();
-    //     addTodoToLocalStorage()
-    // }
+    
     if (checkBox.checked) {
         list.checked = true
         if (projectHeader.textContent === 'Todo') {
@@ -339,7 +325,7 @@ checkBox.addEventListener('change', ()=>{
 
 //View button//
 const viewBtn = document.createElement('button')
-viewBtn.textContent = 'View'
+viewBtn.classList.add('view-btn')
 leftSideContainer.appendChild(viewBtn);
 
 viewBtn.addEventListener('click', (e)=> {
@@ -364,7 +350,6 @@ listCard.appendChild(rightSideContainer);
 //Edit button// 
 const editBtn = document.createElement('button');
 editBtn.classList.add('edit-btn')
-editBtn.textContent = 'Edit'
 rightSideContainer.appendChild(editBtn);
 
 //Event listener for edit button//
@@ -373,12 +358,12 @@ editBtn.addEventListener('click', (e)=> {
     const {editDialog} = createEditForm(list, contentTitle,dueDateDisplay)
     document.body.appendChild(editDialog)
     editDialog.showModal()
+    
 });
 
 const {projectHeader} = loadPageLayout
 if (projectHeader.textContent ==='Todo') {
     const removeBtn = document.createElement('button')
-    removeBtn.textContent = 'Remove'
     removeBtn.classList.add('remove-btn')
 
     const todoListIndex = getCurrentProject().listArray.length -1;
@@ -395,7 +380,6 @@ removeBtn.setAttribute('data-index', todoListIndex)
 } else {
     // Delete button//
 const deleteBtn = document.createElement('button');
-deleteBtn.textContent = 'Delete';
 deleteBtn.classList.add('delete-btn');
 
 

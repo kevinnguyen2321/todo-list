@@ -126,21 +126,28 @@ export const createNewProjectModal = function () {
 
     // Project name//
     const nameContainer = document.createElement('div')
-    newProjectForm.appendChild(nameContainer)
+    nameContainer.classList.add('project-name-container')
+    
     const projectName = document.createElement('label')
     projectName.setAttribute('for', 'name')
     projectName.textContent = 'Project Name'
+    nameContainer.appendChild(projectName)
 
     const projectNameInput = document.createElement('input')
     projectNameInput.setAttribute('type', 'text')
 
-    nameContainer.appendChild(projectName)
+    
     nameContainer.appendChild(projectNameInput)
 
     //Create project button// 
+    const newProjBtnContainer = document.createElement('div')
+    newProjBtnContainer.classList.add('new-proj-btn-container')
     const createNewProjectBtn = document.createElement('button');
     createNewProjectBtn.textContent = 'Create Project'
-    newProjectForm.appendChild(createNewProjectBtn)
+    newProjBtnContainer.appendChild(createNewProjectBtn)
+
+    newProjectForm.appendChild(nameContainer)
+    newProjectForm.appendChild(newProjBtnContainer)
     
    
     
@@ -181,8 +188,8 @@ export const createProjectNameCard = function (value) {
 
     //Project delete button//
     const projectDeleteBtn = document.createElement('button')
-    projectDeleteBtn.textContent = 'X'
     projectDeleteBtn.classList.add('side-bar-project-delete')
+    projectDeleteBtn.textContent = 'X'
     const projIndex = projectArray.length;
     projectDeleteBtn.setAttribute('index', projIndex)
     projectNameCard.appendChild(projectDeleteBtn)

@@ -8,8 +8,9 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
     
     //Dialog & Edit form creation//
     const editDialog = document.createElement('dialog')
+    editDialog.classList.add('edit-dialog')
     const editForm = document.createElement('form')
-    editForm.classList.add('edit-modal');
+    editForm.classList.add('edit-modal-form');
     editDialog.appendChild(editForm)
    
     //Title label & input//
@@ -70,12 +71,19 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
 
 
     //Priority buttons// 
+    const labelForPriorityEdit = document.createElement('label');
+    labelForPriorityEdit.textContent = 'Priority'
     const priorityBtnEditContainer = document.createElement('div')
+    priorityBtnEditContainer.classList.add('priority-edit-btns-container')
+    editForm.appendChild(labelForPriorityEdit)
     editForm.appendChild(priorityBtnEditContainer)
+
+   
 
      //Low priority edit button
     const lowPriorityEditBtn = document.createElement('button')
     lowPriorityEditBtn.textContent = 'Low'
+    lowPriorityEditBtn.classList.add('low-priority-edit-btn')
     priorityBtnEditContainer.appendChild(lowPriorityEditBtn)
 
     lowPriorityEditBtn.addEventListener('click', (e)=> {
@@ -90,6 +98,7 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
     //High priority edit button//
     const highPriorityEditBtn = document.createElement('button')
     highPriorityEditBtn.textContent = 'High'
+    highPriorityEditBtn.classList.add('high-priority-edit-btn')
     priorityBtnEditContainer.appendChild(highPriorityEditBtn)
 
     highPriorityEditBtn.addEventListener('click', (e)=> {
@@ -97,18 +106,45 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
         handlePriorityBtns(lowPriorityEditBtn,highPriorityEditBtn)
         list.priority = 'High'
     });
+
+    if (list.priority === 'Low') {
+        lowPriorityEditBtn.classList.add('selected')
+        lowPriorityEditBtn.style.backgroundColor = 'green'
+    } else if (list.priority === 'High') {
+        highPriorityEditBtn.classList.add('selected')
+        highPriorityEditBtn.style.backgroundColor = 'red'
+    }
+
+
+
+
+    //Bottom button container//
+
+    const bottomEditBtnsContainer = document.createElement('div')
+    bottomEditBtnsContainer.classList.add('bottom-edit-btns-container')
+    editForm.appendChild(bottomEditBtnsContainer)
     
 
 
+      //Cancel button//
+      const cancelBtn = document.createElement('button')
+      cancelBtn.textContent = 'X'
+      cancelBtn.classList.add('cancel-edit-btn')
+      bottomEditBtnsContainer.appendChild(cancelBtn)
+      //Cancel button event listener//
+      cancelBtn.addEventListener('click', (e) =>{ 
+          e.preventDefault();
+          editDialog.close()
+  
+      });
+    
+    
     //Confirm edit button//
     const confirmEditBtn = document.createElement('button')
     confirmEditBtn.textContent = 'Confirm Edit';
-    editForm.appendChild(confirmEditBtn)
+    confirmEditBtn.classList.add('confirm-edit-btn')
+    bottomEditBtnsContainer.appendChild(confirmEditBtn)
 
-    
-    
-     
-    
     //Confirm edit button event listener//
     confirmEditBtn.addEventListener('click', (e) =>{
         e.preventDefault();
@@ -134,28 +170,14 @@ export const createEditForm = function (list, contentTitle, dueDateDisplay) {
        } else {
         addProjToLocalStorage()
         }
-        
-       
+
        editDialog.close()
-
-
+    
         }
        
-       
-    
     });
 
-    //Cancel button//
-    const cancelBtn = document.createElement('button')
-    cancelBtn.textContent = 'Cancel'
-    editForm.appendChild(cancelBtn)
-    //Cancel button event listener//
-    cancelBtn.addEventListener('click', (e) =>{ 
-        e.preventDefault();
-        editDialog.close()
-
-    });
-
+  
 
 return {editDialog,titleInputEdit}
 }
